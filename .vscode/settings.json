@@ -1,0 +1,6 @@
+{
+    "prettier.useTabs": false,
+    "prettier.tabWidth": 4,
+    "eslint.experimental.useFlatConfig": true,
+    "eslint.format.enable": true
+}
