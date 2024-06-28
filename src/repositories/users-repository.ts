@@ -1,6 +1,9 @@
+import { User } from "@prisma/client";
+
 export interface UsersRepository {
     create: (data: UserCreateInput) => Promise<UserOutput>;
     findByEmail: (email: string) => Promise<UserOutput | null>;
+    findById: (id: string) => Promise<UserOutput | null>;
 }
 
 export type UserCreateInput = {
@@ -9,10 +12,4 @@ export type UserCreateInput = {
     password_hash: string;
 };
 
-export type UserOutput = {
-    id: string;
-    name: string;
-    email: string;
-    password_hash: string;
-    created_at: Date;
-};
+export type UserOutput = User;

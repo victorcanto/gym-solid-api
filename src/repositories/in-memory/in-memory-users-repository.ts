@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import {
     UserCreateInput,
     UserOutput,
@@ -9,7 +10,7 @@ export class InMemoryUsersRepository implements UsersRepository {
 
     async create(data: UserCreateInput): Promise<UserOutput> {
         const user = {
-            id: "valid_id",
+            id: randomUUID(),
             name: data.name,
             email: data.email,
             password_hash: data.password_hash,
@@ -20,6 +21,12 @@ export class InMemoryUsersRepository implements UsersRepository {
     }
     async findByEmail(email: string): Promise<UserOutput | null> {
         const user = this.users.find((user) => user.email === email);
+        if (!user) return null;
+        return user;
+    }
+
+    async findById(id: string): Promise<UserOutput | null> {
+        const user = this.users.find((user) => user.id === id);
         if (!user) return null;
         return user;
     }
