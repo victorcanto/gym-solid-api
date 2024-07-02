@@ -1,0 +1,8 @@
+export const LATITUDE_USER = -7.852115;
+export const LONGITUDE_USER = -35.26355;
+export const LATITUDE_GYM = -7.851854;
+export const LONGITUDE_GYM = -35.2632269;
+export const LATITUDE_GYM_TOO_LONG = -7.8497435;
+export const LONGITUDE_GYM_TOO_LONG = -35.2638091;
+export const LATITUDE_GYM_TOO_LONG_10_KM = -8.0452175;
+export const LONGITUDE_GYM_TOO_LONG_10_KM = -34.9036044;
