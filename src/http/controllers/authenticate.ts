@@ -16,14 +16,22 @@ export async function authenticate(
 
     try {
         const registerUseCase = makeAuthenticateUseCase();
-        await registerUseCase.execute({
+        const { user } = await registerUseCase.execute({
             email,
             password,
         });
-        return reply.status(201).send();
+        const token = await reply.jwtSign(
+            {},
+            {
+                sign: {
+                    sub: user.id,
+                },
+            }
+        );
+        return reply.status(200).send({ token });
     } catch (err) {
         if (err instanceof InvalidCredentialsError) {
-            return reply.status(409).send({ message: err.message });
+            return reply.status(400).send({ message: err.message });
         }
         throw err;
     }
