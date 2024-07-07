@@ -3,8 +3,14 @@ import { FastifyReply, FastifyRequest } from "fastify";
 export async function refresh(request: FastifyRequest, reply: FastifyReply) {
     await request.jwtVerify({ onlyCookie: true });
 
+    if (!request.user) {
+        return reply.status(401).send({ message: "Unauthorized" });
+    }
+
     const token = await reply.jwtSign(
-        {},
+        {
+            role: request.user.role,
+        },
         {
             sign: {
                 sub: request.user.sub,
@@ -12,7 +18,9 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
         }
     );
     const refreshToken = await reply.jwtSign(
-        {},
+        {
+            role: request.user.role,
+        },
         {
             sign: {
                 sub: request.user.sub,
